@@ -81,4 +81,5 @@ omit = ["*/tests/*"]
 # Constraining resolution to this platform ensures uv picks compatible wheels.
 required-environments = [
     "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
 ]
