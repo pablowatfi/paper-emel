@@ -13,7 +13,7 @@ from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponen
 from arxiv_rag.exceptions import IngestionError
 from arxiv_rag.models import Paper
 
-_OAI_BASE = "https://export.arxiv.org/oai2"
+_OAI_BASE = "https://oaipmh.arxiv.org/oai"  # old export.arxiv.org/oai2 → 301 as of 2025
 _NS = {
     "oai": "http://www.openarchives.org/OAI/2.0/",
     "arxiv": "http://arxiv.org/OAI/arXivRaw/",
@@ -112,7 +112,7 @@ class OAIClient:
         http_client: httpx.AsyncClient | None = None,
         rate_limit_seconds: float = _DEFAULT_RATE_LIMIT,
     ) -> None:
-        self._client = http_client or httpx.AsyncClient(timeout=30.0)
+        self._client = http_client or httpx.AsyncClient(timeout=30.0, follow_redirects=True)
         self._owns_client = http_client is None
         self._rate_limit_seconds = rate_limit_seconds
 
@@ -138,7 +138,7 @@ class OAIClient:
         self,
         from_date: date,
         until_date: date,
-        set_spec: str = "cs.LG",
+        set_spec: str = "cs:cs:LG",  # new endpoint format; old export.arxiv.org used "cs.LG"
     ) -> AsyncGenerator[Paper, None]:
         """Yield Papers from OAI-PMH with resumption-token pagination."""
         params: dict[str, str] = {

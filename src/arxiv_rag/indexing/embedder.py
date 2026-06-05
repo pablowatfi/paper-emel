@@ -33,7 +33,10 @@ class BGEEmbedder:
         if self._model is None:
             from sentence_transformers import SentenceTransformer as _ST
 
-            self._model = _ST(self._MODEL_NAME)
+            # Force CPU: avoids MPS/CUDA OOM on machines where the GPU is present
+            # but constrained (e.g. Mac with shared MPS memory).  BGE-small is
+            # fast enough on CPU for our batch sizes.
+            self._model = _ST(self._MODEL_NAME, device="cpu")
         return self._model
 
     def embed_texts(self, texts: list[str]) -> npt.NDArray[np.float32]:

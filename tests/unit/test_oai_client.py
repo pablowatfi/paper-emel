@@ -13,7 +13,7 @@ import respx
 from arxiv_rag.exceptions import IngestionError
 from arxiv_rag.ingestion.oai_client import OAIClient
 
-_OAI_URL = "https://export.arxiv.org/oai2"
+_OAI_URL = "https://oaipmh.arxiv.org/oai"
 _FROM = date(2024, 1, 1)
 _UNTIL = date(2024, 1, 15)
 
