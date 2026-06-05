@@ -20,7 +20,8 @@ dependencies = [
     "langfuse>=2.50",
     "sentry-sdk>=2.0",
     "ragas>=0.2",
-    "numpy>=2.0",
+    "numpy>=1.24,<2.0; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "numpy>=2.0; sys_platform != 'darwin' or platform_machine != 'x86_64'",
     "tiktoken>=0.7",
 ]
 
@@ -66,6 +67,10 @@ quote-style = "double"
 strict = true
 python_version = "3.12"
 files = ["src/"]
+
+[[tool.mypy.overrides]]
+module = ["sentence_transformers", "sentence_transformers.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
