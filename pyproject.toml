@@ -72,6 +72,10 @@ files = ["src/"]
 module = ["sentence_transformers", "sentence_transformers.*"]
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = ["qdrant_client", "qdrant_client.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
