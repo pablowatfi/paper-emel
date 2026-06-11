@@ -18,7 +18,7 @@ dependencies = [
     "slowapi>=0.1.9",
     "redis>=5.0",
     "langfuse>=2.50",
-    "sentry-sdk>=2.0",
+    "sentry-sdk>=2.62.0",
     "ragas>=0.2",
     "numpy>=1.24,<2.0; sys_platform == 'darwin' and platform_machine == 'x86_64'",
     "numpy>=2.0; sys_platform != 'darwin' or platform_machine != 'x86_64'",
